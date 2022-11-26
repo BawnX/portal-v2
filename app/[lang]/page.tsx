@@ -1,7 +1,9 @@
-export default function Page() {
+import i18n from '@i18next'
+
+export default function Page () {
   return (
     <>
-      <p>Welcome</p>
+      <p>{i18n.t('home')}</p>
     </>
-  );
+  )
 }

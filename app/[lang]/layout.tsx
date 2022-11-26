@@ -1,4 +1,5 @@
 import i18n from '@i18next'
+import '../../styles/globals.css'
 
 export default function RootLayout ({
   children,
@@ -18,6 +19,7 @@ export default function RootLayout ({
         <link rel='icon' href='/favicon.ico' />
       </head>
       <body>
+        <nav></nav>
         <main>{children}</main>
       </body>
     </html>

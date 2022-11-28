@@ -1,3 +1,4 @@
+import { AppContainer } from '@components/appContainer'
 import i18n from '@i18next'
 import '../../styles/globals.css'
 
@@ -19,9 +20,11 @@ export default function RootLayout ({
         <link rel='icon' href='/favicon.ico' />
       </head>
       <body>
-        <nav></nav>
-        <main>{children}</main>
+        <AppContainer>
+          <main>{children}</main>
+        </AppContainer>
       </body>
     </html>
   )
 }
+

@@ -1,13 +1,17 @@
 import i18n from 'i18next'
-import BackendFs from 'i18next-fs-backend'
+import * as en from './en/common.json'
+import * as es from './es/common.json'
 
-i18n.use(BackendFs).init({
+i18n.init({
   fallbackLng: 'es',
   supportedLngs: ['es', 'en'],
-  fallbackNS: 'common',
-  ns: ['common'],
-  backend: {
-    loadPath: './i18n/{{lng}}/{{ns}}.json'
+  resources: {
+    en: {
+      translation: en
+    },
+    es: {
+      translation: es
+    }
   },
   initImmediate: true
 })

@@ -2,35 +2,49 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import i18n from '@i18next'
 
-export function middleware(request: NextRequest) {
-    const locales = i18n.options.supportedLngs as string[]
-    const defaultLang = i18n.options.fallbackLng?.toString()
-    const { headers, nextUrl } = request
+export function middleware (request: NextRequest) {
+  const locales = i18n.options.supportedLngs as string[]
+  const defaultLang = i18n.options.fallbackLng?.toString()
+  const { headers, nextUrl } = request
 
-    // Exclude statics - add your static folders
-    const shouldCheckLocale = !nextUrl.pathname.startsWith('/_next') && !nextUrl.pathname.startsWith('/favicon')
-    // && !nextUrl.pathname.startsWith("/images/");
+  // Exclude statics - add your static folders
+  const shouldCheckLocale =
+    !nextUrl.pathname.startsWith('/_next') &&
+    !nextUrl.pathname.startsWith('/favicon')
+  // && !nextUrl.pathname.startsWith("/images/");
+  const reqLocale = nextUrl.pathname.split('/')[1]
+  const noValidLocale = !locales.includes(reqLocale)
+  const isNotSavedLang = request.cookies.get('lang')?.value === undefined
 
-    const reqLocale = nextUrl.pathname.split('/')[1]
-    const noValidLocale = !locales.includes(reqLocale)
+  if (shouldCheckLocale && noValidLocale && isNotSavedLang) {
+    // TODO: check from cookie before detecting
+    const accepts = headers.get('accept-language') || ''
+    // Omit country for now
+    const detected = accepts.split(',')[0].split('-')[0]
 
-    if (shouldCheckLocale && noValidLocale) {
-        // TODO: check from cookie before detecting
+    const validLocale = locales.includes(detected) ? detected : defaultLang
 
-        const accepts = headers.get('accept-language') || ''
-        // Omit country for now
-        const detected = accepts.split(',')[0].split('-')[0]
+    nextUrl.pathname = `${nextUrl.pathname}`
+    const res = NextResponse.redirect(
+      new URL(`/${validLocale}${nextUrl.pathname}`, request.url)
+    )
+    res.cookies.set('lang', validLocale ?? 'en')
 
-        const validLocale = locales.includes(detected) ? detected : defaultLang
+    return res
+  }
 
-        nextUrl.pathname = `${nextUrl.pathname}`
+  if (!isNotSavedLang && shouldCheckLocale && noValidLocale) {
+    return NextResponse.redirect(
+      new URL(
+        `/${request.cookies.get('lang')?.value}${nextUrl.pathname}`,
+        request.url
+      )
+    )
+  }
 
-        return NextResponse.redirect(new URL(`/${validLocale}${nextUrl.pathname}`, request.url))
-    }
-
-    return NextResponse.next()
+  return NextResponse.next()
 }
 
 export const config = {
-    matcher: ['/:path*']
+  matcher: ['/:path*']
 }

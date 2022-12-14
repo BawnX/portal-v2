@@ -2,7 +2,8 @@ import { navigationType } from '..'
 
 const navigation: navigationType = {
   pricing: 'Pricing',
-  logo: 'アリアンツ'
+  logo: 'アリアンツ',
+  system: 'System'
 }
 
 export default navigation

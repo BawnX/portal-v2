@@ -2,8 +2,7 @@ import navigationEs from './es/navigation'
 import navigationEn from './en/navigation'
 
 export type navigationType = {
-    pricing: string
-    logo: string
+  [index: string]: string
 }
 export type translationsType = {
   [index: string]: navigationType

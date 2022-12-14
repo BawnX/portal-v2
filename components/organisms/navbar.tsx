@@ -48,7 +48,7 @@ export const NavBar = () => {
         onClick={() => console.log('redirect')}
         size='normal'
       >
-        Sistema
+        {text.navigation.system}
       </Button>
       <Button
         color='transparent'

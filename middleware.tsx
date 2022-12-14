@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import i18n from '@i18next'
 
 export function middleware (request: NextRequest) {
-  const locales = i18n.options.supportedLngs as string[]
-  const defaultLang = i18n.options.fallbackLng?.toString()
+  const locales = ['es', 'en']
+  const defaultLang = 'es'
   const { headers, nextUrl } = request
 
   // Exclude statics - add your static folders

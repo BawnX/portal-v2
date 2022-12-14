@@ -2,7 +2,8 @@
 const colors = require('tailwindcss/colors')
 module.exports = {
   content: [
-    './{components, app}/**/*.{js,ts,jsx,tsx}'
+    './app/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}'
   ],
   darkMode: 'class',
   theme: {
@@ -24,6 +25,7 @@ module.exports = {
       purple: colors.violet,
       yellow: colors.amber,
       pink: colors.fuchsia,
+      slate: colors.slate,
       primary: 'hsl(184.8,80.8%,30.6%)',
       secondary: 'hsl(207, 69%, 35%)'
     },

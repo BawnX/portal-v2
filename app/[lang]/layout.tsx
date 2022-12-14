@@ -1,13 +1,14 @@
 import { LanguageProvider } from '@components/atoms/languageContext'
 import { ThemeProvider } from '@components/atoms/themeContext'
 import { NavBar } from '@components/organisms/navbar'
+import { ReactNode } from 'react'
 import '../../styles/globals.css'
 
 export default function RootLayout ({
   children,
   params
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: { lang: string };
 }) {
   return (

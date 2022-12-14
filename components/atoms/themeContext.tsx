@@ -59,20 +59,24 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (mode === initialMode) {
       document.documentElement.setAttribute('class', 'light')
+      localStorage.setItem('theme', 'light')
     }
 
     if (mode !== initialMode) {
       document.documentElement.setAttribute('class', 'dark')
+      localStorage.setItem('theme', 'dark')
     }
   }, [mode])
 
   const handleTheme = (color?: string) => {
     if (color) {
-      return setMode(color)
+      setMode(color)
+      return
     }
 
     if (mode === initialMode) {
-      return setMode('dark')
+      setMode('dark')
+      return
     }
 
     setMode('light')
